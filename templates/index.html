@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="static/styles.css">
+    <link rel="icon" type="image/png" href="static/itcos-favicon.png">
+</head>
+<body>
+	<main class="card">
+		<img class="hero" src="{{ url_for('static', filename='itcos-skull.png') }}" alt="{{ band_name }}">
+		<!-- <img class="hero" src="{{ url_for('static', filename='itcos-logo.png') }}" alt="{{ band_name }}"> -->
+		<p class="tagline">{{ band_name }}</p>
+        <p class="tagline">{{ tagline }}</p>
+        <h1><i>"ITCOS inhabits the strange fringes between sludge metal and sprawling spaghetti western scores,
+            constantly striving for visceral power and raw intensity, contrasted with eerie,
+            spare instrumental passages."</i></h1>
+            <nav class="links">
+            {% for link in links %}
+                <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer">{{ link.label }}</a>
+            {% endfor %}
+            </nav>
+		<footer class="footer">&copy; {{ year }} {{ band_name }}</footer>
+	</main>
+</body>
+</html>
