@@ -2,11 +2,9 @@
 
 ## Run Locally (Flask Dev Server)
 
-Create and activate a virtual environment, then install dependencies:
+Activate a virtual environment:
 
-    python3 -m venv .venv
     source .venv/bin/activate
-    pip install -r requirements.txt
 
 Start the development server:
 
@@ -19,7 +17,8 @@ http://127.0.0.1:5000
 
 ## Build Static Site
 
-Generate the static build:
+ITCOS is hosted on Netlify, which builds the project on git push,
+but here's the steps to generate a static build:
 
     python app.py build
 
