@@ -8,7 +8,7 @@ Activate a virtual environment:
 
 Start the development server:
 
-    python app.py serve
+    python3 app.py serve
 
 Open in your browser:
 http://127.0.0.1:5000
@@ -20,7 +20,7 @@ http://127.0.0.1:5000
 ITCOS is hosted on Netlify, which builds the project on git push,
 but here's the steps to generate a static build:
 
-    python app.py build
+    python3 app.py build
 
 This creates the `dist/` directory.
 
