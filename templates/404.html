@@ -1,0 +1,7 @@
+<script>
+  fetch("/.netlify/functions/sendMetric", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ metricName: "page.404" })
+  }).catch(() => {});
+</script>

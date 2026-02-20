@@ -17,6 +17,25 @@
   <link rel="icon" type="image/png" href="static/itcos-favicon.png">
 </head>
 
+<script>
+  const sendMetric = (metricName, value = 1) => {
+    fetch("/.netlify/functions/sendMetric", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ metricName, value })
+    }).catch(() => {});
+  };
+
+  // Track page load (2xx equivalent)
+  sendMetric("page.load");
+
+  // Track basic page load time
+  window.addEventListener("load", () => {
+    const loadTime = performance.now();
+    sendMetric("page.load_time_ms", Math.round(loadTime));
+  });
+</script>
+
 <body>
 	<main class="card">
         <img class="hero" id="hero-image" src="static/itcos-skull.png" alt="{{ band_name }}">
