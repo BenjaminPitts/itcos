@@ -1,63 +1,56 @@
-
 import argparse
-import os
-import shutil
-from datetime import datetime
-from flask import Flask, render_template
 
-app = Flask(__name__, template_folder="templates", static_folder="static")
+from site_builder import BuildPaths, build_site, create_app
+from site_config import load_site_config, load_pages
 
-TEMPLATE = "index.html"
-STATIC_SRC = os.path.join("static", "styles.css")
-STATIC_DST = os.path.join("dist", "styles.css")
-DIST_DIR = "dist"
 
-DATA = {
-  "band_name": "In the Company of Serpents",
-  "tagline": "Sonic Catharsis",
-  "links": [
-    {"label": "Bandcamp", "url": "https://inthecompanyofserpentsdoom.bandcamp.com/"},
-    {"label": "Instagram", "url": "https://www.instagram.com/itcosdoom/"},
-    {"label": "Email", "url": "mailto:inthecompanyofserpents@gmail.com"},
-  ],
-  "year": datetime.now().year,
-}
+def serve(port: int, debug: bool) -> None:
+    config = load_site_config()
+    paths = BuildPaths()
+    app = create_app(paths)
 
-def build():
-    if os.path.exists(DIST_DIR):
-        shutil.rmtree(DIST_DIR)
+    @app.route("/")
+    def index():
+        return app.jinja_env.get_template(paths.index_template).render(**config.template_context())
+    
+    @app.route("/bio")
+    @app.route("/bio/")
+    def bio():
+        return app.jinja_env.get_template("bio.html").render(**config.template_context())
 
-    os.makedirs(DIST_DIR, exist_ok=True)
+    app.run(host="127.0.0.1", port=port, debug=debug)
 
-    with app.test_request_context("/"):
-        html = render_template(TEMPLATE, **DATA)
 
-    with open(os.path.join(DIST_DIR, "index.html"), "w", encoding="utf-8") as f:
-        f.write(html)
+def main() -> None:
+    parser = argparse.ArgumentParser(description="itcos site builder")
+    sub = parser.add_subparsers(dest="command", required=True)
 
-    shutil.copy2("robots.txt", os.path.join(DIST_DIR, "robots.txt"))
-    shutil.copy2("sitemap.xml", os.path.join(DIST_DIR, "sitemap.xml"))
-    shutil.copytree("static", os.path.join(DIST_DIR, "static"))
+    p_serve = sub.add_parser("serve", help="Run local dev server")
+    p_serve.add_argument("--port", type=int, default=5000)
+    p_serve.add_argument("--debug", action="store_true")
 
-    print("ITCOS Build complete.")
+    p_build = sub.add_parser("build", help="Build static site into dist/")
+    p_build.add_argument("--out", default="dist", help="Output directory (default: dist)")
+    p_build.add_argument("--no-clean", action="store_true", help="Do not delete dist/ before building")
+    p_build.add_argument(
+        "--site-url",
+        default="https://inthecompanyofserpents.com",
+        help="Site URL for sitemap generation",
+    )
 
-def serve():
-  app = Flask(__name__, template_folder="templates", static_folder="static")
+    args = parser.parse_args()
 
-  @app.route("/")
-  def index():
-    return render_template(TEMPLATE, **DATA)
+    config = load_site_config()
 
-  app.run(debug=True)
+    if args.command == "serve":
+        serve(port=args.port, debug=args.debug)
+        return
 
-def main():
-  parser = argparse.ArgumentParser(description="itcos site builder")
-  parser.add_argument("command", choices=["serve", "build"], help="Command to run")
-  args = parser.parse_args()
-  if args.command == "build":
-    build()
-  elif args.command == "serve":
-    serve()
+    if args.command == "build":
+        paths = BuildPaths(dist_dir=args.out)
+        pages = load_pages()
+        build_site(config, pages, paths, clean=(not args.no_clean), site_url=args.site_url)
+
 
 if __name__ == "__main__":
-  main()
+    main()

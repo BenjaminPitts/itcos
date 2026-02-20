@@ -23,6 +23,18 @@ main {
   box-shadow: 0 4px 32px rgba(0,0,0,0.2);
 }
 
+a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+a:hover {
+  color: #ffe082;
+  text-decoration: none;
+  font-weight: 500;
+}
+
 h1 {
   margin: 0 0 1rem;
   font-size: 16px;

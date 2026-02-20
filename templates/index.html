@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>In The Company of Serpents | Official Site</title>
+  <title>In the Company of Serpents | Official Site</title>
   <meta name="description" content="Official site for In The Company of Serpents — doom metal band blending sludge, western atmosphere, and raw intensity.">
   <meta name="robots" content="index, follow">
 
@@ -46,7 +46,10 @@
             spare instrumental passages.</h1>
             <nav class="links">
             {% for link in links %}
-                <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer">{{ link.label }}</a>
+              <a href="{{ link.url }}"
+                {% if link.target %}target="{{ link.target }}" rel="noopener noreferrer"{% endif %}>
+                {{ link.label }}
+              </a>
             {% endfor %}
             </nav>
 		<footer class="footer">&copy; {{ year }} {{ band_name }}</footer>
