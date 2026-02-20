@@ -24,25 +24,22 @@ DATA = {
 }
 
 def build():
+    if os.path.exists(DIST_DIR):
+        shutil.rmtree(DIST_DIR)
+
     os.makedirs(DIST_DIR, exist_ok=True)
 
-    # Render HTML (template can use url_for('static', ...))
     with app.test_request_context("/"):
         html = render_template(TEMPLATE, **DATA)
 
-    # Write index.html
     with open(os.path.join(DIST_DIR, "index.html"), "w", encoding="utf-8") as f:
         f.write(html)
 
-    # Copy static/ -> dist/static/
-    dist_static = os.path.join(DIST_DIR, "static")
-    if os.path.exists(dist_static):
-        shutil.rmtree(dist_static)
-    shutil.copytree("static", dist_static)
+    shutil.copy2("robots.txt", os.path.join(DIST_DIR, "robots.txt"))
+    shutil.copy2("sitemap.xml", os.path.join(DIST_DIR, "sitemap.xml"))
+    shutil.copytree("static", os.path.join(DIST_DIR, "static"))
 
-    print("ITCOS Build complete: dist/index.html and dist/static/* copied.")
-
-
+    print("ITCOS Build complete.")
 
 def serve():
   app = Flask(__name__, template_folder="templates", static_folder="static")

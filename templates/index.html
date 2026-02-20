@@ -1,20 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="static/styles.css">
-    <link rel="icon" type="image/png" href="static/itcos-favicon.png">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>In The Company of Serpents | Official Site</title>
+  <meta name="description" content="Official site for In The Company of Serpents — doom metal band blending sludge, western atmosphere, and raw intensity.">
+  <meta name="robots" content="index, follow">
+
+  <meta property="og:title" content="In The Company of Serpents">
+  <meta property="og:description" content="Official site for doom metal band In The Company of Serpents.">
+  <meta property="og:image" content="https://inthecompanyofserpents.com/static/itcos-skull.png">
+  <meta property="og:url" content="https://inthecompanyofserpents.com">
+  <meta property="og:type" content="website">
+
+  <link rel="stylesheet" href="static/styles.css">
+  <link rel="icon" type="image/png" href="static/itcos-favicon.png">
 </head>
+
 <body>
 	<main class="card">
-		<img class="hero" src="{{ url_for('static', filename='itcos-skull.png') }}" alt="{{ band_name }}">
-		<!-- <img class="hero" src="{{ url_for('static', filename='itcos-logo.png') }}" alt="{{ band_name }}"> -->
+        <img class="hero" id="hero-image" src="static/itcos-skull.png" alt="{{ band_name }}">
 		<p class="tagline">{{ band_name }}</p>
         <p class="tagline">{{ tagline }}</p>
-        <h1><i>"ITCOS inhabits the strange fringes between sludge metal and sprawling spaghetti western scores,
+        <h1>ITCOS inhabits the strange fringes between sludge metal and sprawling spaghetti western scores,
             constantly striving for visceral power and raw intensity, contrasted with eerie,
-            spare instrumental passages."</i></h1>
+            spare instrumental passages.</h1>
             <nav class="links">
             {% for link in links %}
                 <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer">{{ link.label }}</a>
@@ -24,3 +34,27 @@
 	</main>
 </body>
 </html>
+
+<script>
+  const images = [
+    "static/itcos-skull.png",
+    "static/img3.png",
+    "static/img4.png",
+    "static/img2.png",
+    "static/img5.png",
+    "static/img1.png"
+  ];
+
+  let current = 0;
+  const hero = document.getElementById("hero-image");
+
+  setInterval(() => {
+    hero.style.opacity = "0";
+
+    setTimeout(() => {
+      current = (current + 1) % images.length;
+      hero.src = images[current];
+      hero.style.opacity = "1";
+    }, 350);
+  }, 5000);
+</script>
