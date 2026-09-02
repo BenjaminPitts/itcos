@@ -91,7 +91,7 @@ def build_site(config: SiteConfig, pages: list[Page], paths: BuildPaths, *, clea
     # Render + write each page
     with app.test_request_context("/"):
         for page in pages:
-            html = render_template(page.template, **ctx)
+            html = render_template(page.template, **config.template_context(page=page))
             out_dir = paths.dist_dir if page.output_dir == "" else os.path.join(paths.dist_dir, page.output_dir)
             ensure_dir(out_dir)
             write_file(os.path.join(out_dir, "index.html"), html)
