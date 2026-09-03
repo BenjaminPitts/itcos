@@ -1,92 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>In the Company of Serpents | Official Site</title>
-  <meta name="description" content="Official site for In The Company of Serpents — doom metal band blending sludge, western atmosphere, and raw intensity.">
-  <meta name="robots" content="index, follow">
+{% extends "base.html" %}
+{% block content %}
+<main>
+  <section class="hero" aria-labelledby="hero-title"><div class="hero-art"><img src="/static/img5.png" alt="In the Company of Serpents performing live" width="1112" height="1070"></div><div class="hero-copy"><p class="eyebrow">{{ tagline }}</p><h1 id="hero-title">In the Company<br>of Serpents</h1><p class="hero-description">{{ descriptor }}</p><div class="button-row"><a class="button button-primary" href="#listen">Listen</a><a class="button button-quiet" href="#watch">Watch</a><a class="text-link" href="#contact">Booking / Contact</a></div></div></section>
+  <section class="signal-band" aria-label="Highlights">{% for highlight in highlights %}<p>{{ highlight }}</p>{% endfor %}</section>
+    <section class="section about-section" id="about" aria-labelledby="about-title"><div class="editorial-layout"><img class="editorial-photo" src="/static/img4.png" alt="In the Company of Serpents on stage" width="1112" height="1070" loading="lazy"><div class="editorial-copy"><div class="section-heading"><p class="eyebrow">01 / About</p><h2 id="about-title">Sonic catharsis</h2></div><div class="prose"><p>Founded in 2011, IN THE COMPANY OF SERPENTS traffics in sonic catharsis. Fiercely DIY in their ethics, the band has self-released five LPs, one EP, and one Single since their inception.</p><p>Their music inhabits the strange fringes between sludge metal and sprawling spaghetti western scores, constantly conjuring visceral power and raw intensity, contrasted with eerie, spare instrumental passages. While previous works focused largely on occult and esoteric themes, 2025’s <em>A Crack in Everything</em> delves deeply into personal struggle, depression, and grappling with addiction. Threads of esotericism still weave through the record, but it stands apart as a deeply personal effort.</p><p>Their two most recent LPs, <em>A Crack in Everything</em> and 2020’s <em>Lux</em>, both garnered widespread praise and were the only independent releases to be featured in Decibel Magazine’s annual Top 40 records in their release years.</p></div></div></div></section>
+  <section class="section section-split" id="listen" aria-labelledby="listen-title"><div class="section-heading"><p class="eyebrow">02 / Listen</p><h2 id="listen-title">A Crack in Everything</h2><p class="section-intro">The latest full-length released in 2025. A personal record about struggle, survival, and finding meaning in the cracks we carry - because that's how the light gets in.</p></div><div class="media-panel">{% if featured_album.embed_url %}<iframe class="bandcamp-player" src="{{ featured_album.embed_url }}" title="{{ featured_album.title }} on Bandcamp" loading="lazy" allow="fullscreen"></iframe>{% else %}<div class="embed-placeholder"><span>Bandcamp player</span><strong>Embed URL pending album ID</strong><p>Add the official Bandcamp embed URL to <code>featured_album.embed_url</code> in site_config.py.</p></div>{% endif %}<a class="arrow-link" href="{{ featured_album.url }}" target="_blank" rel="noopener noreferrer">View full discography and buy merch on Bandcamp <span aria-hidden="true">↗</span></a></div></section>
+  <section class="section" id="watch" aria-labelledby="watch-title"><div class="section-heading"><p class="eyebrow">03 / Watch</p><h2 id="watch-title">In motion</h2></div><div class="video-grid">{% for video in videos %}<figure class="video"><div class="video-frame"><iframe src="{{ video.url }}" title="{{ video.title }}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><figcaption>{{ video.title }}</figcaption></figure>{% endfor %}</div></section>
+    <section class="section shows-section" id="shows" aria-labelledby="shows-title"><div class="editorial-layout"><div class="editorial-copy"><div class="section-heading"><p class="eyebrow">04 / Shows</p><h2 id="shows-title">Upcoming performances</h2></div><div class="show-state">{% if shows %}{% for show in shows %}<p>{{ show.date }} · {{ show.venue }} · {{ show.city }}</p>{% endfor %}{% else %}<div class="bandsintown-placeholder" aria-label="Bandsintown widget placeholder"><span>Bandsintown widget</span><strong>Upcoming shows will appear here</strong></div>{% endif %}<a class="arrow-link" href="#contact">Booking inquiries <span aria-hidden="true">→</span></a></div></div><img class="editorial-photo" src="/static/img2.png" alt="In the Company of Serpents in a live setting" width="1112" height="1070" loading="lazy"></div></section>
+  <section class="section press-section" id="press" aria-labelledby="press-title"><div class="editorial-copy"><div class="section-heading"><p class="eyebrow">05 / Press</p><h2 id="press-title">“A powerful sojourn into the depths of darkness”</h2></div><div class="press-content-grid"><div><article class="latest-release"><p class="press-quote">{{ latest_press_release.snippet }}</p><a class="latest-release-link" href="{{ latest_press_release.url }}" target="_blank" rel="noopener noreferrer">Latest press release</a><span class="article-link">Earsplit PR ↗</span></article><div class="press-quotes">{% for quote in press_quotes if quote.homepage_column == 'short' %}<blockquote><p class="press-quote">“{{ quote.text }}”</p><cite class="press-source">{% if quote.url %}<a href="{{ quote.url }}" target="_blank" rel="noopener noreferrer">{{ quote.source }}</a><span class="article-link">Read the article ↗</span>{% else %}{{ quote.source }}{% endif %}</cite></blockquote>{% endfor %}</div></div><div class="press-quotes">{% for quote in press_quotes if quote.homepage_column == 'long' %}<blockquote><p class="press-quote">“{{ quote.text }}”</p><cite class="press-source">{% if quote.url %}<a href="{{ quote.url }}" target="_blank" rel="noopener noreferrer">{{ quote.source }}</a><span class="article-link">Read the article ↗</span>{% else %}{{ quote.source }}{% endif %}</cite></blockquote>{% endfor %}</div></div></div></section>
+  <section class="section contact-section" id="contact" aria-labelledby="contact-title"><div class="contact-copy"><p class="eyebrow">06 / Contact</p><h2 id="contact-title">Channel the catharsis</h2><p>For booking, press, and general inquiries, reach out directly.</p></div><div class="contact-details"><a class="email-link" href="mailto:{{ contact_email }}">{{ contact_email }}</a><div class="social-list">{% for link in social_links %}<a href="{{ link.url }}" target="_blank" rel="noopener noreferrer">{{ link.label }} <span aria-hidden="true">↗</span></a>{% endfor %}</div><div class="download-actions">{% if epk_url %}<a class="button button-primary" href="{{ epk_url }}" target="_blank" rel="noopener noreferrer">Download EPK</a>{% else %}<span class="epk-note">EPK download coming soon</span>{% endif %}<a class="button button-quiet logo-download" href="https://drive.google.com/file/d/1i7RyNqhJVfj2Z_Ue_zd5yoUcK_TBftYe/view?usp=sharing" target="_blank" rel="noopener noreferrer">Download Logo</a></div></div></section>
+</main>
+{% endblock %}
+{% block scripts %}<script>
+  const navigation = performance.getEntriesByType("navigation")[0];
+  if (navigation && navigation.type === "reload" && window.location.hash) {
+    window.history.replaceState(null, "", window.location.pathname + window.location.search);
+    window.scrollTo(0, 0);
+  }
 
-  <meta property="og:title" content="In The Company of Serpents">
-  <meta property="og:description" content="Official site for doom metal band In The Company of Serpents.">
-  <meta property="og:image" content="https://inthecompanyofserpents.com/static/itcos-skull.png">
-  <meta property="og:url" content="https://inthecompanyofserpents.com">
-  <meta property="og:type" content="website">
-
-  <link rel="stylesheet" href="static/styles.css">
-  <link rel="icon" type="image/png" href="static/itcos-favicon.png">
-</head>
-
-<script>
-  const sendMetric = (metricName, value = 1) => {
-    fetch("/.netlify/functions/sendMetric", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ metricName, value })
-    }).catch(() => {});
-  };
-
-  // Track page load (2xx equivalent)
+  const sendMetric = (metricName, value = 1) => { fetch("/.netlify/functions/sendMetric", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ metricName, value }) }).catch(() => {}); };
   sendMetric("page.load");
-
-  // Track basic page load time
-  window.addEventListener("load", () => {
-    const loadTime = performance.now();
-    sendMetric("page.load_time_ms", Math.round(loadTime));
-  });
-</script>
-
-<body>
-	<main class="card">
-        <img class="hero" id="hero-image" src="static/itcos-skull.png" alt="{{ band_name }}">
-		<p class="tagline">{{ band_name }}</p>
-        <p class="tagline">{{ tagline }}</p>
-        <h1>ITCOS inhabits the strange fringes between sludge metal and sprawling spaghetti western scores,
-            constantly striving for visceral power and raw intensity, contrasted with eerie,
-            spare instrumental passages.</h1>
-            <nav class="links">
-            {% for link in links %}
-              <a href="{{ link.url }}"
-                {% if link.target %}target="{{ link.target }}" rel="noopener noreferrer"{% endif %}>
-                {{ link.label }}
-              </a>
-            {% endfor %}
-            </nav>
-		<footer class="footer">&copy; {{ year }} {{ band_name }}</footer>
-	</main>
-</body>
-</html>
-
-<script>
-  const images = [
-    "static/itcos-skull.png",
-    "static/img3.png",
-    "static/img4.png",
-    "static/img2.png",
-    "static/img5.png",
-    "static/img1.png"
-  ];
-
-  const hero = document.getElementById("hero-image");
-  let current = 0;
-
-  hero.src = images[current];
-
-  images.forEach(src => {
-    const img = new Image();
-    img.src = src;
-  });
-
-  setInterval(() => {
-    hero.style.opacity = "0";
-
-    setTimeout(() => {
-      current = (current + 1) % images.length;
-      hero.onload = () => {
-        hero.style.opacity = "1";
-        hero.onload = null;
-      };
-      hero.src = images[current];
-    }, 600);
-  }, 5000);
-</script>
+  window.addEventListener("load", () => sendMetric("page.load_time_ms", Math.round(performance.now())));
+</script>{% endblock %}

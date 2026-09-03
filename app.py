@@ -1,22 +1,28 @@
 import argparse
 
-from site_builder import BuildPaths, build_site, create_app
-from site_config import load_site_config, load_pages
+from site_builder import BuildPaths, build_site, create_app as create_flask_app
+from site_config import load_pages, load_site_config
+
+
+def create_app(paths: BuildPaths | None = None):
+    config = load_site_config()
+    app = create_flask_app(paths or BuildPaths())
+
+    for page in load_pages():
+        endpoint = page.path.strip("/").replace("/", "_") or "index"
+
+        def render_page(page=page):
+            return app.jinja_env.get_template(page.template).render(**config.template_context(page=page))
+
+        app.add_url_rule(page.path, endpoint, render_page)
+        if page.path != "/":
+            app.add_url_rule(page.path.rstrip("/"), f"{endpoint}_no_slash", render_page)
+
+    return app
 
 
 def serve(port: int, debug: bool) -> None:
-    config = load_site_config()
-    paths = BuildPaths()
-    app = create_app(paths)
-
-    @app.route("/")
-    def index():
-        return app.jinja_env.get_template(paths.index_template).render(**config.template_context())
-    
-    @app.route("/bio")
-    @app.route("/bio/")
-    def bio():
-        return app.jinja_env.get_template("bio.html").render(**config.template_context())
+    app = create_app()
 
     app.run(host="127.0.0.1", port=port, debug=debug)
 
