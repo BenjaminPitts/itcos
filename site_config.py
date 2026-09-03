@@ -92,8 +92,8 @@ def load_site_config() -> SiteConfig:
         ],
         featured_album={"title": "A Crack in Everything", "year": "2025", "url": "https://inthecompanyofserpentsdoom.bandcamp.com/", "embed_url": "https://bandcamp.com/EmbeddedPlayer/album=891941117/size=large/bgcol=333333/linkcol=0f91ff/artwork=small/transparent=true/"},
         videos=[
-            {"title": "A Patchwork Art", "url": "https://www.youtube.com/embed/28WZRge2fUk"},
-            {"title": "Record Release Show for A Crack in Everything", "url": "https://www.youtube.com/embed/DUcCrHVpAzA"},
+            {"title": "A Patchwork Art (Official Music Video)", "url": "https://www.youtube.com/embed/28WZRge2fUk"},
+            {"title": "Record Release Show for 'A Crack in Everything'", "url": "https://www.youtube.com/embed/DUcCrHVpAzA"},
         ],
         press_quotes=[
             Quote("Everything Is Noise", "IN THE COMPANY OF SERPENTS so expertly combine the heft of doom and the general ambience of Colorado and the Mountain region it’s in. It takes a palmful of dirt and smacks it on the haunches of their metal music to grit it up.", "https://everythingisnoise.net/premieres/wily-denver-doomers-in-the-company-of-serpents-show-us-a-crack-in-everything/", "long"),
@@ -105,7 +105,6 @@ def load_site_config() -> SiteConfig:
             Quote("Ghost Cult", "The riffs are simple but huge, the production makes the whole thing heavier than a sack of spanners, and the overall effect is undeniably compelling. If you want to experience being pulped by a herd of slowly stampeding elephants, then just listen to A Crack In Everything.", "https://ghostcultmag.com/album-review-in-the-company-of-serpents-a-crack-in-everything-self-released/"),
         ],
         latest_press_release={
-            "title": "U.S. tour dates announced",
             "snippet": "In the Company of Serpents announce U.S. tour dates surrounding Asheville Doomed & Stoned Fest this July (2026).",
             "url": "https://www.earsplitcompound.com/in-the-company-of-serpents-announces-us-tour-dates-surrounding-asheville-doomed-and-stoned-fest-this-july/",
         },
