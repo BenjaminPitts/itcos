@@ -1,17 +1,22 @@
 # ITCOS
 
-## Run Locally (Flask Dev Server)
+## Run Locally
 
-Activate a virtual environment:
+Create and activate the virtual environment, install dependencies, and start Flask:
+
+    python3 -m venv .venv
+    source .venv/bin/activate
+    pip install -r requirements.txt
+    python app.py serve
+
+Open http://127.0.0.1:5000/ in your browser. After `.venv` has been created, future sessions only require:
 
     source .venv/bin/activate
+    python app.py serve
 
-Start the development server:
+While actively editing templates or CSS, use debug mode:
 
-    python3 app.py serve
-
-Open in your browser:
-http://127.0.0.1:5000
+    python app.py serve --debug
 
 ---
 
@@ -20,7 +25,7 @@ http://127.0.0.1:5000
 ITCOS is hosted on Netlify, which builds the project on git push,
 but here's the steps to generate a static build:
 
-    python3 app.py build
+    python app.py build
 
 This creates the `dist/` directory.
 
