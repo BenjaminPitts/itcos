@@ -5,6 +5,7 @@
   --line: rgba(230, 225, 214, .18);
   --rust: #c66b45;
   --max: 1180px;
+  --shows-widget-height: 450px;
 }
 * { box-sizing: border-box; }
 html { background: var(--ink); color: var(--paper); font-family: "Trebuchet MS", Verdana, sans-serif; scroll-behavior: smooth; }
@@ -53,7 +54,8 @@ h2 { font-size: clamp(2.4rem, 5vw, 5rem); }
 .about-section .editorial-layout { align-items: center; }
 .shows-section .editorial-layout { align-items: center; }
 .shows-section .editorial-layout { grid-template-areas: "copy ." "shows media" "booking ."; align-items: start; }
-.shows-section .show-state { grid-area: shows; }
+.shows-section .show-state { grid-area: shows; max-height: var(--shows-widget-height); min-height: 0; min-width: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+.shows-section .show-state:focus-visible { outline: 2px solid var(--rust); outline-offset: 5px; }
 .shows-section .editorial-photo { grid-area: media; align-self: center; }
 .shows-booking-link { grid-area: booking; display: inline-block; margin-top: 1.7rem; }
 .editorial-copy .section-heading { margin-bottom: 1.5rem; }
