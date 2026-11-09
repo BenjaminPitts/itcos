@@ -47,8 +47,8 @@ class SiteConfig:
         page_path = page.path if page else "/"
         page_meta = {
             "/": {
-                "title": "In the Company of Serpents | Denver Sludge & Doom Metal",
-                "description": "Official site of Denver sludge and doom band In the Company of Serpents. Listen to A Crack in Everything, watch videos, view tour dates, press, and booking information.",
+                "title": "In the Company of Serpents | Sonic Catharsis",
+                "description": "Official site of Denver band In the Company of Serpents, purveyors of Western sludge and doom metal. Listen to music, watch videos, view tour dates, press, and booking information.",
             },
         }
         return {
@@ -108,7 +108,7 @@ def load_site_config() -> SiteConfig:
             "snippet": "In the Company of Serpents announce U.S. tour dates surrounding Asheville Doomed & Stoned Fest this July (2026).",
             "url": "https://www.earsplitcompound.com/in-the-company-of-serpents-announces-us-tour-dates-surrounding-asheville-doomed-and-stoned-fest-this-july/",
         },
-        highlights=["Decibel Magazine Top 40 Albums of the Year - 2020 and 2025", "Shared stages with Neurosis, Sleep, Red Fang, YOB, Converge, Godflesh, and more"],
+        highlights=["Decibel Magazine Top 40 Albums of the Year - 2020 and 2025", "Shared stages with Neurosis, Sleep, Cannibal Corpse, YOB, Converge, Godflesh, and more"],
         shows=[],
         epk_url="https://drive.google.com/file/d/1LgvzdvKIkp65EQtodECvXwcCnWSfd4_5/view?usp=sharing",
         year=datetime.now().year,
